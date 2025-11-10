@@ -1,0 +1,16 @@
+version: '3.9'
+services:
+  eureka:
+    build: .
+    container_name: eureka-${SPRING_PROFILES_ACTIVE}
+    ports:
+      - "${EUREKA_PORT:-8761}:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
+      - EUREKA_INSTANCE_HOSTNAME=${EUREKA_HOSTNAME}
+    networks:
+      - eureka-network
+
+networks:
+  eureka-network:
+    driver: bridge
