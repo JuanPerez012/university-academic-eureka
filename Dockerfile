@@ -8,6 +8,6 @@ COPY ${JAR_FILE} app.jar
 
 ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75"
 
-EXPOSE 8081
+EXPOSE 8761
 
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /app/app.jar"]
