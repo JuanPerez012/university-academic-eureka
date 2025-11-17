@@ -14,13 +14,13 @@ pipeline {
 
     environment {
         MVN_CMD = "/usr/bin/mvn"
-        IMAGE_NAME = "student-service"
+        IMAGE_NAME = "eureka-server"
         IMAGE_TAG = "${ENVIRONMENT}-${BUILD_NUMBER}"
         FULL_IMAGE = "${DOCKER_REGISTRY_HOST ? DOCKER_REGISTRY_HOST + '/' : ''}${IMAGE_NAME}:${IMAGE_TAG}"
         ENV_DEPLOY_FILE = ".env.deploy"
         DOCKER_REGISTRY_CRED = "docker-registry-creds"
         DEPLOY_DIR = "/apps/deploy"
-        CONTAINER_NAME = "student-service"
+        CONTAINER_NAME = "eureka-server"
     }
 
     options {
@@ -40,7 +40,7 @@ pipeline {
             steps {
                 sh """
                     mkdir -p ${DEPLOY_DIR}
-                    cp /apps/config/student/.env ${DEPLOY_DIR}/${ENV_DEPLOY_FILE}
+                    cp /apps/config/eureka/.env ${DEPLOY_DIR}/${ENV_DEPLOY_FILE}
                     echo ".env.deploy copiado desde volumen correctamente"
                 """
             }
@@ -84,7 +84,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    // Leer el puerto desde el .env ya copiado en deploy
                     def port = sh(script: "grep '^PORT=' ${DEPLOY_DIR}/${ENV_DEPLOY_FILE} | cut -d '=' -f2", returnStdout: true).trim()
 
                     sh """
