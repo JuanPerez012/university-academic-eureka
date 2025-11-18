@@ -1,0 +1,12 @@
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+  instance:
+    hostname: eureka-develop.local
+  server:
+    enable-self-preservation: false
+
+logging:
+  level:
+    root: DEBUG
